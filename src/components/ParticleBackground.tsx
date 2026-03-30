@@ -31,16 +31,14 @@ const ParticleBackground = () => {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Particle colors - purple theme matching site
     const colors = [
-      "rgba(168, 85, 247, ",   // purple-500
-      "rgba(192, 132, 252, ",  // purple-400
-      "rgba(139, 92, 246, ",   // violet-500
-      "rgba(217, 70, 239, ",   // fuchsia-500
-      "rgba(232, 121, 249, ",  // fuchsia-400
+      "rgba(168, 85, 247, ",
+      "rgba(192, 132, 252, ",
+      "rgba(139, 92, 246, ",
+      "rgba(217, 70, 239, ",
+      "rgba(232, 121, 249, ",
     ];
 
-    // Initialize particles
     const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
     particlesRef.current = [];
 
@@ -79,17 +77,14 @@ const ParticleBackground = () => {
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Update position
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around edges
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
 
-        // Mouse interaction - gentle push away
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -99,17 +94,14 @@ const ParticleBackground = () => {
           p.vy += (dy / dist) * force * 0.02;
         }
 
-        // Dampen velocity
         p.vx *= 0.99;
         p.vy *= 0.99;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color + p.opacity + ")";
         ctx.fill();
 
-        // Draw connections between nearby particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const cdx = p.x - p2.x;
@@ -144,8 +136,8 @@ const ParticleBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-[1] pointer-events-auto"
-      style={{ opacity: 0.7 }}
+      className="absolute inset-0 w-full h-full pointer-events-auto"
+      style={{ zIndex: 5, opacity: 0.8 }}
     />
   );
 };
