@@ -5,6 +5,8 @@ interface Particle {
   y: number;
   vx: number;
   vy: number;
+  baseVx: number;
+  baseVy: number;
   size: number;
   opacity: number;
   color: string;
@@ -43,11 +45,16 @@ const ParticleBackground = () => {
     particlesRef.current = [];
 
     for (let i = 0; i < particleCount; i++) {
+      // Each particle gets a permanent base velocity so it always drifts
+      const baseVx = (Math.random() - 0.5) * 1.2;
+      const baseVy = (Math.random() - 0.5) * 1.2;
       particlesRef.current.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
+        vx: baseVx,
+        vy: baseVy,
+        baseVx,
+        baseVy,
         size: Math.random() * 2.5 + 0.5,
         opacity: Math.random() * 0.5 + 0.15,
         color: colors[Math.floor(Math.random() * colors.length)],
@@ -74,36 +81,44 @@ const ParticleBackground = () => {
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        p.x += p.vx;
-        p.y += p.vy;
+        // Always apply base drift velocity
+        p.vx += (p.baseVx - p.vx) * 0.01;
+        p.vy += (p.baseVy - p.vy) * 0.01;
 
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
+        // Mouse repulsion (bonus interaction, not required for movement)
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 120 && dist > 0) {
           const force = (120 - dist) / 120;
-          p.vx += (dx / dist) * force * 0.03;
-          p.vy += (dy / dist) * force * 0.03;
+          p.vx += (dx / dist) * force * 0.05;
+          p.vy += (dy / dist) * force * 0.05;
         }
 
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap edges
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        // Speed limit
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 1.5) {
-          p.vx = (p.vx / speed) * 1.5;
-          p.vy = (p.vy / speed) * 1.5;
+        if (speed > 2) {
+          p.vx = (p.vx / speed) * 2;
+          p.vy = (p.vy / speed) * 2;
         }
-        p.vx *= 0.995;
-        p.vy *= 0.995;
 
+        // Draw dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color + p.opacity + ")";
         ctx.fill();
 
+        // Connection lines
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const cdx = p.x - p2.x;
