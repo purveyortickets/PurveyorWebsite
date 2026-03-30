@@ -6,13 +6,11 @@ const Header = () => {
 
   const handleNavigation = (path: string, hash?: string) => {
     if (window.location.pathname === '/' && hash) {
-      // If already on home page, just scroll to section
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else if (hash) {
-      // If on different page, navigate to home then scroll
       navigate(`${path}#${hash}`);
       setTimeout(() => {
         const element = document.getElementById(hash);
@@ -43,16 +41,16 @@ const Header = () => {
                 Services
               </button>
               <button 
-                onClick={() => handleNavigation('/', 'ongoing-events')}
-                className="text-muted-foreground hover:text-primary transition-all duration-500 animate-fade-in hover:scale-105 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-              >
-                Upcoming Events
-              </button>
-              <button 
                 onClick={() => handleNavigation('/', 'testimonials')}
                 className="text-muted-foreground hover:text-primary transition-all duration-500 animate-fade-in hover:scale-105 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
               >
                 Testimonials
+              </button>
+              <button 
+                onClick={() => handleNavigation('/', 'twitter-feed')}
+                className="text-muted-foreground hover:text-primary transition-all duration-500 animate-fade-in hover:scale-105 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+              >
+                Proofs
               </button>
               <button 
                 onClick={() => handleNavigation('/', 'contact')}
