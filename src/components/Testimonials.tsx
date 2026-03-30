@@ -1,12 +1,10 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Star, TrendingUp } from "lucide-react";
-import Autoplay from "embla-carousel-autoplay";
+import { Star } from "lucide-react";
 import ImageModal from "@/components/ImageModal";
 
 const Testimonials = () => {
-  const testimonialsLeft = [
+  const testimonials = [
     {
       name: "BLINKS.",
       event: "BLACK PINK <DEADLINE> in Bulacan",
@@ -53,27 +51,6 @@ const Testimonials = () => {
       testimonialImage: "https://pbs.twimg.com/media/HET0AoPbkAAZCiB?format=png&name=small"
     },
     {
-      name: "Alex Rodriguez",
-      event: "The Weeknd After Hours Tour",
-      text: "I've used other services before, but none compare to Purveyor Tickets. Fast, reliable, and they use your own credentials for security.",
-      rating: 5,
-      avatar: "AR",
-      userImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      testimonialImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop"
-    },
-    {
-      name: "Ri****",
-      event: "SEVENTEEN <Right Here> World Tour in Manila",
-      text: "sobrang ganda ng service! super legit po ng purveyor tickets 💗 nakabili ako ng VIP standing ticket salamat po!",
-      rating: 5,
-      avatar: "RL",
-      userImage: "https://cdn.discordapp.com/avatars/123456789012345678/example.webp?size=80",
-      testimonialImage: "https://i.imgur.com/ExampleSVT.png"
-    }
-  ];
-
-  const testimonialsRight = [
-    {
       name: "David Park",
       event: "Coldplay Concert",
       text: "Quick, efficient, and affordable. They handled everything while I was at work. Got the notification that tickets were secured in just 2 hours!",
@@ -109,24 +86,6 @@ const Testimonials = () => {
       userImage: "https://cdn.discordapp.com/avatars/123456789012345678/example.webp?size=80",
       testimonialImage: "https://i.imgur.com/ExampleSVT.png"
     },
-      {
-      name: "BLINKS.",
-      event: "BLACK PINK <DEADLINE> in Bulacan",
-      text: "Secured VIP Pit, VIP SC, LBA PREM ... up to UBC for all the BLINK Fans who availed",
-      rating: 5,
-      avatar: "SM",
-      userImage: "https://vectorseek.com/wp-content/uploads/2023/06/vectorseek.com-Blackpink-Logo-Vector.png",
-      testimonialImage: "https://pbs.twimg.com/media/GtzEQ6sW4AAbaLq?format=jpg&name=medium"
-    },
-    {
-      name: "Se**j****e",
-      event: "Seventeen <Right Here> World Tour in Bulacan",
-      text: "thank you so much for this super low qn purveyor team!! 💗  Queue Number #0001",
-      rating: 5,
-      avatar: "MC",
-      userImage: "https://cdn.discordapp.com/avatars/884358656622211072/f0e61b79f2ee583732da2f3b79f6613f.webp?size=80",
-      testimonialImage: "https://i.imgur.com/ClyrUsP.png"
-    },
     {
       name: "J",
       event: "BINI HERE WITH YOU HOME COMING FAN MEET",
@@ -135,7 +94,7 @@ const Testimonials = () => {
       avatar: "JR",
       userImage: "https://cdn.discordapp.com/avatars/739464172860997702/321614cb87aa531b8cc55a3bc6ea86bd.webp?size=80",
       testimonialImage: "https://i.imgur.com/BLGcsE9.png"
-    }
+    },
   ];
 
   return (
@@ -146,134 +105,62 @@ const Testimonials = () => {
             Recent <span className="bg-gradient-primary bg-clip-text text-transparent">Testimonials</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-up delay-200">
-            Proof of our reliable and successful ticket purchases for high-demand events!
+            Proven track record of reliable ticket purchases for sought-after events.
           </p>
         </div>
 
-        {/* First Carousel - Moving Left */}
-        <Carousel
-          className="max-w-7xl mx-auto mb-8"
-          opts={{
-            align: "start",
-            loop: false,
-          }}
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {testimonialsLeft.map((testimonial, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                <Card className="bg-gradient-card border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-glow group animate-fade-in hover-scale overflow-hidden h-[420px] flex flex-col">
-                  {/* Testimonial Screenshot */}
-                  <ImageModal
-                    imageSrc={testimonial.testimonialImage}
-                    imageAlt={`${testimonial.event} testimonial`}
-                    trigger={
-                      <div className="relative h-40 overflow-hidden flex-shrink-0 cursor-pointer">
-                        <img 
-                          src={testimonial.testimonialImage} 
-                          alt={`${testimonial.event} testimonial`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      </div>
-                    }
-                  />
-                  
-                  <CardHeader className="flex-shrink-0 pb-3">
-                    <div className="flex items-center space-x-3">
-                      <Avatar className="border-2 border-primary/20 w-10 h-10 flex-shrink-0">
-                        <AvatarImage src={testimonial.userImage} alt={testimonial.name} />
-                        <AvatarFallback className="bg-gradient-primary text-white font-semibold text-xs">
-                          {testimonial.avatar}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-foreground text-sm truncate">{testimonial.name}</h4>
-                        <p className="text-xs text-primary font-medium truncate">{testimonial.event}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex space-x-1 mt-2 justify-center">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-primary text-primary animate-fade-in" />
-                      ))}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="flex-1 flex items-start pt-2">
-                    <blockquote className="text-muted-foreground italic text-sm leading-relaxed line-clamp-4">
-                      "{testimonial.text}"
-                    </blockquote>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
-        </Carousel>
-
-        {/* Second Carousel - Moving Right */}
-        <Carousel
-          className="max-w-7xl mx-auto"
-          opts={{
-            align: "start",
-            loop: false,
-          }}
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {testimonialsRight.map((testimonial, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                <Card className="bg-gradient-card border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-glow group animate-slide-up hover-scale overflow-hidden h-[420px] flex flex-col">
-                  {/* Testimonial Screenshot */}
-                  <ImageModal
-                    imageSrc={testimonial.testimonialImage}
-                    imageAlt={`${testimonial.event} testimonial`}
-                    trigger={
-                      <div className="relative h-40 overflow-hidden flex-shrink-0 cursor-pointer">
-                        <img 
-                          src={testimonial.testimonialImage} 
-                          alt={`${testimonial.event} testimonial`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      </div>
-                    }
-                  />
-                  
-                  <CardHeader className="flex-shrink-0 pb-3">
-                    <div className="flex items-center space-x-3">
-                      <Avatar className="border-2 border-primary/20 w-10 h-10 flex-shrink-0">
-                        <AvatarImage src={testimonial.userImage} alt={testimonial.name} />
-                        <AvatarFallback className="bg-gradient-primary text-white font-semibold text-xs">
-                          {testimonial.avatar}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-foreground text-sm truncate">{testimonial.name}</h4>
-                        <p className="text-xs text-primary font-medium truncate">{testimonial.event}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex space-x-1 mt-2 justify-center">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-primary text-primary animate-fade-in" />
-                      ))}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="flex-1 flex items-start pt-2">
-                    <blockquote className="text-muted-foreground italic text-sm leading-relaxed line-clamp-4">
-                      "{testimonial.text}"
-                    </blockquote>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
-        </Carousel>
-
+        {/* Fixed Grid Layout - No Carousel */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
+          {testimonials.map((testimonial, index) => (
+            <Card 
+              key={index} 
+              className="bg-gradient-card border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-glow group animate-fade-in hover-scale overflow-hidden h-[420px] flex flex-col"
+            >
+              {/* Testimonial Screenshot */}
+              <ImageModal
+                imageSrc={testimonial.testimonialImage}
+                imageAlt={`${testimonial.event} testimonial`}
+                trigger={
+                  <div className="relative h-40 overflow-hidden flex-shrink-0 cursor-pointer">
+                    <img 
+                      src={testimonial.testimonialImage} 
+                      alt={`${testimonial.event} testimonial`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  </div>
+                }
+              />
+              
+              <CardHeader className="flex-shrink-0 pb-3">
+                <div className="flex items-center space-x-3">
+                  <Avatar className="border-2 border-primary/20 w-10 h-10 flex-shrink-0">
+                    <AvatarImage src={testimonial.userImage} alt={testimonial.name} />
+                    <AvatarFallback className="bg-gradient-primary text-white font-semibold text-xs">
+                      {testimonial.avatar}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-foreground text-sm truncate">{testimonial.name}</h4>
+                    <p className="text-xs text-primary font-medium truncate">{testimonial.event}</p>
+                  </div>
+                </div>
+                
+                <div className="flex space-x-1 mt-2 justify-center">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-primary text-primary animate-fade-in" />
+                  ))}
+                </div>
+              </CardHeader>
+              
+              <CardContent className="flex-1 flex items-start pt-2">
+                <blockquote className="text-muted-foreground italic text-sm leading-relaxed line-clamp-4">
+                  "{testimonial.text}"
+                </blockquote>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );
