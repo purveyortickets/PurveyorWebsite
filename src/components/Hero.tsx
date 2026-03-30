@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, DollarSign, TrendingUp, Zap } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 import logo from "/lovable-uploads/fa21bdb6-a4e1-4d86-8a6e-97c7042719bc.png";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const Hero = () => {
   return (
@@ -17,13 +18,8 @@ const Hero = () => {
       />
       <div className="absolute inset-0 z-0 bg-black/70" />
       
-      {/* Animated dots */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-20 w-2 h-2 bg-primary rounded-full animate-pulse" />
-        <div className="absolute top-40 right-32 w-1 h-1 bg-accent rounded-full animate-pulse delay-1000" />
-        <div className="absolute bottom-32 left-40 w-2 h-2 bg-primary rounded-full animate-pulse delay-500" />
-        <div className="absolute bottom-20 right-20 w-1 h-1 bg-accent rounded-full animate-pulse delay-1500" />
-      </div>
+      {/* Particle Effect */}
+      <ParticleBackground />
 
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto">
